@@ -11,23 +11,50 @@ class Proxy(Generic[T]):
         _callbacks (List[Callabel[[Any], None]]): 注册成功后执行的回调函数
 
     """
-    __slots__ = ('instance', '_callbacks')
+    __slots__ = ('instance', '_callbacks', '_instance_check')
     instance: Optional[T]
     _callbacks: List[Callable[[T], None]]
+    _instance_check: Optional[Callable[[T], bool]]
 
     def __init__(self, instance: Optional[T] = None) -> None:
         self._callbacks = []
-        self.instance = instance
+        self.instance = None
+        self._instance_check = None
+        if instance:
+            self.initialize(instance)
+
+    def attach_instance_check(self, func: Callable[[T], bool]) -> Callable[[T], bool]:
+        """代理注册实例前进行的校验.
+
+        可以作为装饰器使用.如果未注册则不进行校验
+
+        Args:
+            func ( Callable[[T], bool]): [description]
+        """
+        @functools.wraps(func)
+        def warp(instance: T) -> bool:
+            return func(instance)
+
+        self._instance_check = warp
+        return warp
 
     def initialize(self, instance: T) -> None:
         """将被代理的实例注册到代理上."""
-        self.instance = instance
+        if self._instance_check:
+            if self._instance_check(instance):
+                self.instance = instance
+            else:
+                raise AttributeError("实例校验失败")
+        else:
+            self.instance = instance
 
         for callback in self._callbacks:
             callback(self.instance)
 
     def attach_callback(self, callback: Callable[[T], None]) -> Callable[[T], None]:
         """代理被注册时的回调.
+
+        可以作为装饰器使用.
 
         Args:
             callback (function): [description]
