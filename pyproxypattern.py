@@ -1,3 +1,4 @@
+import functools
 from typing import Optional, Callable, Any, TypeVar, List, Generic
 T = TypeVar('T')
 
@@ -25,13 +26,17 @@ class Proxy(Generic[T]):
         for callback in self._callbacks:
             callback(self.instance)
 
-    def attach_callback(self, callback: Callable[[T], None]) -> None:
+    def attach_callback(self, callback: Callable[[T], None]) -> Callable[[T], None]:
         """代理被注册时的回调.
 
         Args:
             callback (function): [description]
         """
-        self._callbacks.append(callback)
+        @functools.wraps(callback)
+        def warp(instance: T) -> None:
+            return callback(instance)
+        self._callbacks.append(warp)
+        return warp
 
     def __getattr__(self, attr: str) -> Any:
         if self.instance is None:
