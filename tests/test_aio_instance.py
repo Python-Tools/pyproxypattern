@@ -1,14 +1,16 @@
+import asyncio
 import unittest
 from typing import Any
+from aiounittest import async_test
 from pyproxypattern import Proxy
 
 
 def setUpModule() -> None:
-    print("[SetUp pyproxypattern common instance test]")
+    print("[SetUp pyproxypattern aio instance test]")
 
 
 def tearDownModule() -> None:
-    print("[TearDown pyproxypattern common instance test]")
+    print("[TearDown pyproxypattern aio instance test]")
 
 
 class CommonInstanceTest(unittest.TestCase):
@@ -17,26 +19,22 @@ class CommonInstanceTest(unittest.TestCase):
     def setUp(self) -> None:
         print("Proxy setUp")
         self.proxy = Proxy()
+        self.loop = asyncio.get_event_loop()
 
     def tearDown(self) -> None:
         print("Proxy tearDown")
 
-    def test_class_attr(self) -> None:
-        class Test_A:
-            a = 1
-        A = Test_A()
-        self.proxy.initialize(A)
-        assert self.proxy.a == A.a
-
-    def test_class_method(self) -> None:
+    @async_test
+    async def test_class_aio_method(self) -> None:
         class Test_B:
-            def get2(self) -> int:
+            async def get2(self) -> int:
                 return 2
         B = Test_B()
         self.proxy.initialize(B)
-        assert self.proxy.get2() == B.get2()
+        assert (await self.proxy.get2()) == (await B.get2())
 
-    def test_class_context(self) -> None:
+    @async_test
+    async def test_class_aio_context(self) -> None:
         class LookingGlass:
             def __init__(self, namespace: str) -> None:
                 self.namespace = namespace
@@ -44,34 +42,35 @@ class CommonInstanceTest(unittest.TestCase):
             def getkey(self, key: str) -> str:
                 return f"{self.namespace}::{key}"
 
-            def __enter__(self) -> "LookingGlass":
+            async def __aenter__(self) -> "LookingGlass":
                 return self
 
-            def __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> bool:
+            async def __aexit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> bool:
                 return True
 
         C = LookingGlass("asdfa")
         self.proxy.initialize(C)
-        with self.proxy as c:
+        async with self.proxy as c:
             assert c.getkey("1234") == "asdfa::1234"
 
-    def test_class_gen(self) -> None:
+    @async_test
+    async def test_class_aiogen(self) -> None:
         class ExGen:
             def __init__(self, max_num: int) -> None:
                 self.max_num = max_num
                 self.i = 0
 
-            def __iter__(self) -> "ExGen":
+            def __aiter__(self) -> "ExGen":
                 return self
 
-            def __next__(self) -> int:
+            async def __anext__(self) -> int:
                 if self.i >= self.max_num:
-                    raise StopIteration
+                    raise StopAsyncIteration
                 self.i += 1
                 return self.i
 
         C = ExGen(10)
         cc = ExGen(10)
         self.proxy.initialize(C)
-        for ii, jj in zip((i for i in C), (j for j in cc)):
+        for ii, jj in zip([i async for i in C], [j async for j in cc]):
             assert ii == jj

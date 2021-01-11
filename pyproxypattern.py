@@ -45,16 +45,6 @@ class Proxy(Generic[T]):
     _callbacks: List[Callable[[T], None]]
     _instance_check: Optional[Callable[[T], bool]]
 
-    # def __new__(cls, *args: Any, **kwargs: Any) -> 'Proxy':
-    #     ins = super().__new__(cls)
-    #     # Allow proxy to be used as a context-manager.
-    #     ins.__enter__ = MethodType(passthrough('__enter__'), ins)
-    #     ins.__exit__ = MethodType(passthrough('__exit__'), ins)
-
-    #     ins.__aenter__ = MethodType(apassthrough('__aenter__'), ins)
-    #     ins.__aexit__ = MethodType(apassthrough('__aexit__'), ins)
-    #     return ins
-
     def __init__(self, instance: Optional[T] = None) -> None:
         self._callbacks = []
         self.instance = None
@@ -114,15 +104,12 @@ class Proxy(Generic[T]):
             raise AttributeError('Cannot set attribute on proxy.')
         return super().__setattr__(attr, value)
 
-    # def passthrough(method):
-    #     def inner(self, *args, **kwargs):
-    #         if self.obj is None:
-    #             raise AttributeError('Cannot use uninitialized Proxy.')
-    #         return getattr(self.obj, method)(*args, **kwargs)
-    #     return inner
-
-    # Allow proxy to be used as a context-manager.
     __enter__ = passthrough('__enter__')
     __exit__ = passthrough('__exit__')
     __aenter__ = apassthrough('__aenter__')
     __aexit__ = apassthrough('__aexit__')
+
+    __next__ = passthrough('__next__')
+    __iter__ = passthrough('__iter__')
+    __anext__ = apassthrough('__anext__')
+    __aiter__ = apassthrough('__aiter__')
