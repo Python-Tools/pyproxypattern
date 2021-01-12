@@ -1,0 +1,47 @@
+:mod:`pyproxy.logger_proxy`
+===========================
+
+.. py:module:: pyproxy.logger_proxy
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyproxy.logger_proxy.StructlogProxy
+
+
+
+.. py:class:: StructlogProxy(app_name: Optional[str] = None, log_level: Optional[str] = None)
+
+   Bases: :class:`pyproxy.proxy.Proxy`
+
+   Structlog的代理,使用app_name和loglevel初始化.
+
+   .. attribute:: __slots__
+      :annotation: = ['app_name', 'log_level', 'instance', '_callbacks', '_instance_check']
+
+      
+
+   .. method:: new_instance(self, app_name: str, log_level: str, **kwargs: Any) -> structlog.BoundLogger
+
+
+   .. method:: initialize_for_app(self, app_name: str, *, log_level: str = 'DEBUG', **kwargs: Any) -> None
+
+      初始化log对象.
+      :param app_name: app名
+      :type app_name: str
+      :param log_level: log等级
+      :type log_level: str
+
+
+
+.. data:: log
+   
+
+   
+

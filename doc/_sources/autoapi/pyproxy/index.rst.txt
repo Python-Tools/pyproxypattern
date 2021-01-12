@@ -1,0 +1,224 @@
+:mod:`pyproxy`
+==============
+
+.. py:module:: pyproxy
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   aredis_proxy/index.rst
+   logger_proxy/index.rst
+   peewee_async_proxy/index.rst
+   proxy/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyproxy.Proxy
+   pyproxy.AredisProxy
+   pyproxy.StructlogProxy
+   pyproxy.PeeweeAsyncProxy
+
+
+
+.. py:class:: Proxy(instance: Optional[T] = None)
+
+   Bases: :class:`Generic[T]`
+
+   任意对象的代理对象.
+
+   .. attribute:: instance
+
+      被代理的实例
+
+      :type: T
+
+   .. attribute:: _callbacks
+
+      注册成功后执行的回调函数
+
+      :type: List[Callabel[[Any], None]]
+
+   .. attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check']
+
+      
+
+   .. attribute:: instance
+      :annotation: :Optional[T]
+
+      
+
+   .. attribute:: _callbacks
+      :annotation: :List[Callable[[T], None]]
+
+      
+
+   .. attribute:: _instance_check
+      :annotation: :Optional[Callable[[T], bool]]
+
+      
+
+   .. attribute:: __enter__
+      
+
+      
+
+   .. attribute:: __exit__
+      
+
+      
+
+   .. attribute:: __aenter__
+      
+
+      
+
+   .. attribute:: __aexit__
+      
+
+      
+
+   .. attribute:: __next__
+      
+
+      
+
+   .. attribute:: __iter__
+      
+
+      
+
+   .. attribute:: __anext__
+      
+
+      
+
+   .. attribute:: __aiter__
+      
+
+      
+
+   .. method:: attach_instance_check(self, func: Callable[[T], bool]) -> Callable[[T], bool]
+
+      代理注册实例前进行的校验.
+
+      可以作为装饰器使用.如果未注册则不进行校验
+
+      :param func: [description]
+      :type func: Callable[[T], bool]
+
+
+   .. method:: initialize(self, instance: T) -> None
+
+      将被代理的实例注册到代理上.
+
+
+   .. method:: attach_callback(self, callback: Callable[[T], None]) -> Callable[[T], None]
+
+      代理被注册时的回调.
+
+      可以作为装饰器使用.
+
+      :param callback: [description]
+      :type callback: function
+
+
+   .. method:: __getattr__(self, attr: str) -> Any
+
+
+   .. method:: __setattr__(self, attr: str, value: Any) -> Any
+
+      Implement setattr(self, name, value).
+
+
+
+.. py:class:: AredisProxy(url: Optional[str] = None, decode_responses: bool = True, **kwargs: Any)
+
+   Bases: :class:`pyproxy.proxy.Proxy`
+
+   aredis的代理类.
+
+   .. attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', 'url']
+
+      
+
+   .. method:: new_instance(self, url: str, decode_responses: bool, **kwargs: Any) -> Any
+
+
+   .. method:: initialize_from_url(self, url: str, *, decode_responses: bool = False, **kwargs: Any) -> None
+
+      初始化.
+
+
+
+.. data:: redis_proxy
+   
+
+   
+
+.. py:class:: StructlogProxy(app_name: Optional[str] = None, log_level: Optional[str] = None)
+
+   Bases: :class:`pyproxy.proxy.Proxy`
+
+   Structlog的代理,使用app_name和loglevel初始化.
+
+   .. attribute:: __slots__
+      :annotation: = ['app_name', 'log_level', 'instance', '_callbacks', '_instance_check']
+
+      
+
+   .. method:: new_instance(self, app_name: str, log_level: str, **kwargs: Any) -> structlog.BoundLogger
+
+
+   .. method:: initialize_for_app(self, app_name: str, *, log_level: str = 'DEBUG', **kwargs: Any) -> None
+
+      初始化log对象.
+      :param app_name: app名
+      :type app_name: str
+      :param log_level: log等级
+      :type log_level: str
+
+
+
+.. data:: log
+   
+
+   
+
+.. py:class:: PeeweeAsyncProxy(url: Optional[str] = None, *, table_names: Optional[List[str]] = None)
+
+   Bases: :class:`pyproxy.proxy.Proxy`
+
+   peewee_async的代理类.
+
+   .. attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', 'sync_instance', 'models', 'url']
+
+      
+
+   .. method:: new_instance(self, url: str, table_names: Optional[List[str]] = None) -> peewee_async.Manager
+
+
+   .. method:: initialize_from_URL(self, url: str, *, table_names: Optional[List[str]] = None) -> None
+
+      初始化.
+
+
+
+.. data:: db_proxy
+   
+
+   
+

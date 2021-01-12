@@ -1,0 +1,50 @@
+:mod:`pyproxy.peewee_async_proxy`
+=================================
+
+.. py:module:: pyproxy.peewee_async_proxy
+
+.. autoapi-nested-parse::
+
+   定义peewee_async代理对象的模块
+
+   这个模块使用url初始化,同时提供一个默认的代理对象`db_proxy`.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyproxy.peewee_async_proxy.PeeweeAsyncProxy
+
+
+
+.. py:class:: PeeweeAsyncProxy(url: Optional[str] = None, *, table_names: Optional[List[str]] = None)
+
+   Bases: :class:`pyproxy.proxy.Proxy`
+
+   peewee_async的代理类.
+
+   .. attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', 'sync_instance', 'models', 'url']
+
+      
+
+   .. method:: new_instance(self, url: str, table_names: Optional[List[str]] = None) -> peewee_async.Manager
+
+
+   .. method:: initialize_from_URL(self, url: str, *, table_names: Optional[List[str]] = None) -> None
+
+      初始化.
+
+
+
+.. data:: db_proxy
+   
+
+   
+

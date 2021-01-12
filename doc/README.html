@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyproxypattern &mdash; pyproxypattern 0.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="0.0.0" href="CHANGELOG.html" />
+    <link rel="prev" title="Welcome to pyproxypattern’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyproxypattern
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">使用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">版本变化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyproxypattern</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>pyproxypattern</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/README.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pyproxypattern">
+<h1>pyproxypattern<a class="headerlink" href="#pyproxypattern" title="永久链接至标题">¶</a></h1>
+<p>根据peewee的proxy做的单独的python对象代理模式.</p>
+<div class="section" id="id1">
+<h2>特性<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>提供一个相对通用的代理类<code class="docutils literal notranslate"><span class="pre">Proxy</span></code></p></li>
+<li><p>提供Proxy类和几个常用子类:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">StructlogProxy</span></code>代理结构化的log</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AredisProxy</span></code>代理redis客户端aredis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PeeweeAsyncProxy</span></code>代理关系数据库的orm(peewee_async)</p></li>
+</ul>
+</li>
+<li><p>提供用于检测代理对象类型的回调函数<code class="docutils literal notranslate"><span class="pre">attach_instance_check</span></code></p></li>
+<li><p>提供在初始化代理对象后的回调函数注册器<code class="docutils literal notranslate"><span class="pre">attach_callback</span></code>,回调函数回按注册的顺序执行</p></li>
+<li><p>可以代理上下文对象,迭代器对象</p></li>
+<li><p>可以代理异步上下文对象,异步迭代器对象</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>安装<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyproxypattern</span></code></p>
+</div>
+<div class="section" id="id3">
+<h2>使用<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>两种方式:</p>
+<ol>
+<li><p>直接使用<code class="docutils literal notranslate"><span class="pre">Proxy</span></code>的实例代理对象</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Test_B</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">Test_B</span><span class="p">()</span>
+<span class="n">proxy</span> <span class="o">=</span> <span class="n">Proxy</span><span class="p">()</span>
+<span class="n">proxy</span><span class="o">.</span><span class="n">attach_instance_check</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Test_B</span><span class="p">))</span>
+<span class="n">proxy</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="n">proxy</span><span class="o">.</span><span class="n">get2</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</li>
+<li><p>将<code class="docutils literal notranslate"><span class="pre">Proxy</span></code>类作为父类构造一个更加负载的代理类,然后再用它的实例代理特定对象</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AredisProxy</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;aredis的代理类.&quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance&#39;</span><span class="p">,</span> <span class="s2">&quot;_callbacks&quot;</span><span class="p">,</span> <span class="s2">&quot;_instance_check&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">decode_responses</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_instance</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">decode_responses</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">new_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">decode_responses</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="k">return</span> <span class="n">StrictRedis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">decode_responses</span><span class="o">=</span><span class="n">decode_responses</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">initialize_from_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">decode_responses</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;初始化.&quot;&quot;&quot;</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_instance</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">decode_responses</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="CHANGELOG.html" class="btn btn-neutral float-right" title="0.0.0" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pyproxypattern’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, hsz12.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

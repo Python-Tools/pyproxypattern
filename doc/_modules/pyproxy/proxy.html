@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyproxy.proxy &mdash; pyproxypattern 0.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyproxypattern
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">版本变化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyproxypattern</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+          <li><a href="../pyproxy.html">pyproxy</a> &raquo;</li>
+        
+      <li>pyproxy.proxy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>pyproxy.proxy 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MethodType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Awaitable</span>
+<div class="viewcode-block" id="T"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.T">[文档]</a><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="passthrough"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.passthrough">[文档]</a><span class="k">def</span> <span class="nf">passthrough</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;构造被代理对象的接口</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        method ([type]): [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Cannot use uninitialized Proxy.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+<div class="viewcode-block" id="apassthrough"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.apassthrough">[文档]</a><span class="k">def</span> <span class="nf">apassthrough</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;构造被代理对象的接口</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        method ([type]): [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;Proxy&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Cannot use uninitialized Proxy.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+<div class="viewcode-block" id="Proxy"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy">[文档]</a><span class="k">class</span> <span class="nc">Proxy</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;任意对象的代理对象.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        instance (T): 被代理的实例</span>
+<span class="sd">        _callbacks (List[Callabel[[Any], None]]): 注册成功后执行的回调函数</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Proxy.__slots__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__slots__">[文档]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance&#39;</span><span class="p">,</span> <span class="s1">&#39;_callbacks&#39;</span><span class="p">,</span> <span class="s1">&#39;_instance_check&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.instance"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.instance">[文档]</a>    <span class="n">instance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]</span></div>
+<div class="viewcode-block" id="Proxy._callbacks"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy._callbacks">[文档]</a>    <span class="n">_callbacks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span></div>
+<div class="viewcode-block" id="Proxy._instance_check"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy._instance_check">[文档]</a>    <span class="n">_instance_check</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]]</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instance_check</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">instance</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Proxy.attach_instance_check"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.attach_instance_check">[文档]</a>    <span class="k">def</span> <span class="nf">attach_instance_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;代理注册实例前进行的校验.</span>
+
+<span class="sd">        可以作为装饰器使用.如果未注册则不进行校验</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            func ( Callable[[T], bool]): [description]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">warp</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instance_check</span> <span class="o">=</span> <span class="n">warp</span>
+        <span class="k">return</span> <span class="n">warp</span></div>
+
+<div class="viewcode-block" id="Proxy.initialize"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.initialize">[文档]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;将被代理的实例注册到代理上.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance_check</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance_check</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;实例校验失败&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">instance</span>
+
+        <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">:</span>
+            <span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Proxy.attach_callback"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.attach_callback">[文档]</a>    <span class="k">def</span> <span class="nf">attach_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;代理被注册时的回调.</span>
+
+<span class="sd">        可以作为装饰器使用.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback (function): [description]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">warp</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">callback</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">warp</span></div>
+
+<div class="viewcode-block" id="Proxy.__getattr__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__getattr__">[文档]</a>    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Cannot use uninitialized Proxy.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Proxy.__setattr__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__setattr__">[文档]</a>    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Cannot set attribute on proxy.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Proxy.__enter__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__enter__">[文档]</a>    <span class="fm">__enter__</span> <span class="o">=</span> <span class="n">passthrough</span><span class="p">(</span><span class="s1">&#39;__enter__&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.__exit__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__exit__">[文档]</a>    <span class="fm">__exit__</span> <span class="o">=</span> <span class="n">passthrough</span><span class="p">(</span><span class="s1">&#39;__exit__&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.__aenter__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__aenter__">[文档]</a>    <span class="fm">__aenter__</span> <span class="o">=</span> <span class="n">apassthrough</span><span class="p">(</span><span class="s1">&#39;__aenter__&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.__aexit__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__aexit__">[文档]</a>    <span class="fm">__aexit__</span> <span class="o">=</span> <span class="n">apassthrough</span><span class="p">(</span><span class="s1">&#39;__aexit__&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Proxy.__next__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__next__">[文档]</a>    <span class="fm">__next__</span> <span class="o">=</span> <span class="n">passthrough</span><span class="p">(</span><span class="s1">&#39;__next__&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.__iter__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__iter__">[文档]</a>    <span class="fm">__iter__</span> <span class="o">=</span> <span class="n">passthrough</span><span class="p">(</span><span class="s1">&#39;__iter__&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.__anext__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__anext__">[文档]</a>    <span class="fm">__anext__</span> <span class="o">=</span> <span class="n">apassthrough</span><span class="p">(</span><span class="s1">&#39;__anext__&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Proxy.__aiter__"><a class="viewcode-back" href="../../autoapi/pyproxy/proxy/index.html#pyproxy.Proxy.__aiter__">[文档]</a>    <span class="fm">__aiter__</span> <span class="o">=</span> <span class="n">apassthrough</span><span class="p">(</span><span class="s1">&#39;__aiter__&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, hsz12.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

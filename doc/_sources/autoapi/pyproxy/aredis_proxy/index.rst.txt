@@ -1,0 +1,50 @@
+:mod:`pyproxy.aredis_proxy`
+===========================
+
+.. py:module:: pyproxy.aredis_proxy
+
+.. autoapi-nested-parse::
+
+   定义aredis代理对象的模块
+
+   这个模块使用url初始化aredis,同时提供一个默认的代理对象`redis_proxy`.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyproxy.aredis_proxy.AredisProxy
+
+
+
+.. py:class:: AredisProxy(url: Optional[str] = None, decode_responses: bool = True, **kwargs: Any)
+
+   Bases: :class:`pyproxy.proxy.Proxy`
+
+   aredis的代理类.
+
+   .. attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', 'url']
+
+      
+
+   .. method:: new_instance(self, url: str, decode_responses: bool, **kwargs: Any) -> Any
+
+
+   .. method:: initialize_from_url(self, url: str, *, decode_responses: bool = False, **kwargs: Any) -> None
+
+      初始化.
+
+
+
+.. data:: redis_proxy
+   
+
+   
+
