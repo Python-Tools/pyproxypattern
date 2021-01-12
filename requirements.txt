@@ -1,0 +1,3 @@
+aredis >= 1.0.0
+structlog >= 20.0.0
+peewee_async >= 0.7.0
