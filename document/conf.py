@@ -24,10 +24,10 @@ copyright = '2021, hsz12'
 author = 'hsz12'
 
 # The short X.Y version
-version = '0.0.0'
+version = '0.0.1'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.0'
+release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -147,4 +147,4 @@ extensions.append("sphinx.ext.napoleon")
 
 autoapi_type = 'python'
 
-autoapi_dirs = ["C:\\Users\\hsz12\\Documents\\WORKSPACE\\PythonTools\\pyproxypattern\\pyproxy"]
+autoapi_dirs = ["C:\\Users\\hsz12\\Documents\\WORKSPACE\\PythonTools\\pyproxypattern\\pyproxypattern"]

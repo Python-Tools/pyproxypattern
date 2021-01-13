@@ -1,0 +1,139 @@
+:mod:`pyproxypattern`
+=====================
+
+.. py:module:: pyproxypattern
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   proxy/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyproxypattern.Proxy
+
+
+
+.. py:class:: Proxy(instance: Optional[T] = None)
+
+   Bases: :class:`Generic[T]`
+
+   任意对象的代理对象.
+
+   .. attribute:: instance
+
+      被代理的实例
+
+      :type: T
+
+   .. attribute:: _callbacks
+
+      注册成功后执行的回调函数
+
+      :type: List[Callabel[[Any], None]]
+
+   .. attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check']
+
+      
+
+   .. attribute:: instance
+      :annotation: :Optional[T]
+
+      
+
+   .. attribute:: _callbacks
+      :annotation: :List[Callable[[T], None]]
+
+      
+
+   .. attribute:: _instance_check
+      :annotation: :Optional[Callable[[T], bool]]
+
+      
+
+   .. attribute:: __enter__
+      
+
+      
+
+   .. attribute:: __exit__
+      
+
+      
+
+   .. attribute:: __aenter__
+      
+
+      
+
+   .. attribute:: __aexit__
+      
+
+      
+
+   .. attribute:: __next__
+      
+
+      
+
+   .. attribute:: __iter__
+      
+
+      
+
+   .. attribute:: __anext__
+      
+
+      
+
+   .. attribute:: __aiter__
+      
+
+      
+
+   .. method:: attach_instance_check(self, func: Callable[[T], bool]) -> Callable[[T], bool]
+
+      代理注册实例前进行的校验.
+
+      可以作为装饰器使用.如果未注册则不进行校验
+
+      :param func: [description]
+      :type func: Callable[[T], bool]
+
+
+   .. method:: initialize(self, instance: T) -> None
+
+      将被代理的实例注册到代理上.
+
+
+   .. method:: attach_callback(self, callback: Callable[[T], None]) -> Callable[[T], None]
+
+      代理被注册时的回调.
+
+      可以作为装饰器使用.
+
+      :param callback: [description]
+      :type callback: function
+
+
+   .. method:: __getattr__(self, attr: str) -> Any
+
+
+   .. method:: __setattr__(self, attr: str, value: Any) -> Any
+
+      Implement setattr(self, name, value).
+
+
+
