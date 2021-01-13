@@ -1,6 +1,6 @@
 import unittest
 from typing import Any
-from pyproxy import Proxy
+from pyproxypattern import Proxy
 
 
 def setUpModule() -> None:

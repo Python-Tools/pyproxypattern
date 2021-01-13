@@ -31,12 +31,12 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with pep8
         run: |
-          pycodestyle --max-line-length=140 --ignore=E501 --first --statistics pyproxy
+          pycodestyle --max-line-length=140 --ignore=E501 --first --statistics pyproxypattern
 
       - name: Type Hint Check
         run: |
-          mypy --ignore-missing-imports --show-column-numbers --follow-imports=silent --check-untyped-defs --disallow-untyped-defs --no-implicit-optional --warn-unused-ignores pyproxy
+          mypy --ignore-missing-imports --show-column-numbers --follow-imports=silent --check-untyped-defs --disallow-untyped-defs --no-implicit-optional --warn-unused-ignores pyproxypattern
       - name: Unit Test
         run: |
-          python -m coverage run --source=pyproxy -m unittest discover -v -s . -p *test*.py
+          python -m coverage run --source=pyproxypattern -m unittest discover -v -s . -p *test*.py
           python -m coverage report

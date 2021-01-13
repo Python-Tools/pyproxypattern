@@ -2,7 +2,7 @@ import asyncio
 import unittest
 from typing import Any
 from aiounittest import async_test
-from pyproxy import Proxy
+from pyproxypattern import Proxy
 
 
 def setUpModule() -> None:

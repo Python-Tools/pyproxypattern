@@ -1,5 +1,5 @@
 import unittest
-from pyproxy import Proxy
+from pyproxypattern import Proxy
 from aiounittest import async_test
 
 
