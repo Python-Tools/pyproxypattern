@@ -1,5 +1,4 @@
 import functools
-from types import MethodType
 from typing import Optional, Callable, Any, TypeVar, List, Generic, Awaitable
 T = TypeVar('T')
 
