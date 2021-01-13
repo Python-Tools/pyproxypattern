@@ -5,12 +5,6 @@
 ## 特性
 
 + 提供一个相对通用的代理类`Proxy`
-
-+ 提供Proxy类和几个常用子类:
-    + `StructlogProxy`代理结构化的log
-    + `AredisProxy`代理redis客户端aredis
-    + `PeeweeAsyncProxy`代理关系数据库的orm(peewee_async)
-
 + 提供用于检测代理对象类型的回调函数`attach_instance_check`
 + 提供在初始化代理对象后的回调函数注册器`attach_callback`,回调函数回按注册的顺序执行
 + 可以代理上下文对象,迭代器对象

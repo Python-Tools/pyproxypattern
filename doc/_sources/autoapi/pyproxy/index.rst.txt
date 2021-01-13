@@ -10,9 +10,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   aredis_proxy/index.rst
-   logger_proxy/index.rst
-   peewee_async_proxy/index.rst
    proxy/index.rst
 
 
@@ -25,9 +22,6 @@ Classes
 .. autoapisummary::
 
    pyproxy.Proxy
-   pyproxy.AredisProxy
-   pyproxy.StructlogProxy
-   pyproxy.PeeweeAsyncProxy
 
 
 
@@ -142,83 +136,4 @@ Classes
       Implement setattr(self, name, value).
 
 
-
-.. py:class:: AredisProxy(url: Optional[str] = None, decode_responses: bool = True, **kwargs: Any)
-
-   Bases: :class:`pyproxy.proxy.Proxy`
-
-   aredis的代理类.
-
-   .. attribute:: __slots__
-      :annotation: = ['instance', '_callbacks', '_instance_check', 'url']
-
-      
-
-   .. method:: new_instance(self, url: str, decode_responses: bool, **kwargs: Any) -> Any
-
-
-   .. method:: initialize_from_url(self, url: str, *, decode_responses: bool = False, **kwargs: Any) -> None
-
-      初始化.
-
-
-
-.. data:: redis_proxy
-   
-
-   
-
-.. py:class:: StructlogProxy(app_name: Optional[str] = None, log_level: Optional[str] = None)
-
-   Bases: :class:`pyproxy.proxy.Proxy`
-
-   Structlog的代理,使用app_name和loglevel初始化.
-
-   .. attribute:: __slots__
-      :annotation: = ['app_name', 'log_level', 'instance', '_callbacks', '_instance_check']
-
-      
-
-   .. method:: new_instance(self, app_name: str, log_level: str, **kwargs: Any) -> structlog.BoundLogger
-
-
-   .. method:: initialize_for_app(self, app_name: str, *, log_level: str = 'DEBUG', **kwargs: Any) -> None
-
-      初始化log对象.
-      :param app_name: app名
-      :type app_name: str
-      :param log_level: log等级
-      :type log_level: str
-
-
-
-.. data:: log
-   
-
-   
-
-.. py:class:: PeeweeAsyncProxy(url: Optional[str] = None, *, table_names: Optional[List[str]] = None)
-
-   Bases: :class:`pyproxy.proxy.Proxy`
-
-   peewee_async的代理类.
-
-   .. attribute:: __slots__
-      :annotation: = ['instance', '_callbacks', '_instance_check', 'sync_instance', 'models', 'url']
-
-      
-
-   .. method:: new_instance(self, url: str, table_names: Optional[List[str]] = None) -> peewee_async.Manager
-
-
-   .. method:: initialize_from_URL(self, url: str, *, table_names: Optional[List[str]] = None) -> None
-
-      初始化.
-
-
-
-.. data:: db_proxy
-   
-
-   
 

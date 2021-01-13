@@ -165,9 +165,6 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="aredis_proxy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyproxy.aredis_proxy</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="logger_proxy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyproxy.logger_proxy</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="peewee_async_proxy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyproxy.peewee_async_proxy</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyproxy.proxy</span></code></a></li>
 </ul>
 </div>
@@ -184,15 +181,6 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyproxy.Proxy" title="pyproxy.Proxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Proxy</span></code></a></p></td>
 <td><p>任意对象的代理对象.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyproxy.AredisProxy" title="pyproxy.AredisProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AredisProxy</span></code></a></p></td>
-<td><p>aredis的代理类.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyproxy.StructlogProxy" title="pyproxy.StructlogProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StructlogProxy</span></code></a></p></td>
-<td><p>Structlog的代理,使用app_name和loglevel初始化.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyproxy.PeeweeAsyncProxy" title="pyproxy.PeeweeAsyncProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PeeweeAsyncProxy</span></code></a></p></td>
-<td><p>peewee_async的代理类.</p></td>
 </tr>
 </tbody>
 </table>
@@ -325,94 +313,6 @@
 </dd></dl>
 
 </dd></dl>
-
-<dl class="py class">
-<dt id="pyproxy.AredisProxy">
-<em class="property">class </em><code class="sig-prename descclassname">pyproxy.</code><code class="sig-name descname">AredisProxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decode_responses</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyproxy/aredis_proxy.html#AredisProxy"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#pyproxy.AredisProxy" title="永久链接至目标">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="proxy/index.html#pyproxy.proxy.Proxy" title="pyproxy.proxy.Proxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyproxy.proxy.Proxy</span></code></a></p>
-<p>aredis的代理类.</p>
-<dl class="py attribute">
-<dt id="pyproxy.AredisProxy.__slots__">
-<code class="sig-name descname">__slots__</code><em class="property"> = ['instance', '_callbacks', '_instance_check', 'url']</em><a class="headerlink" href="#pyproxy.AredisProxy.__slots__" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="pyproxy.AredisProxy.new_instance">
-<code class="sig-name descname">new_instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">decode_responses</span><span class="p">:</span> <span class="n">bool</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#pyproxy.AredisProxy.new_instance" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="pyproxy.AredisProxy.initialize_from_url">
-<code class="sig-name descname">initialize_from_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">decode_responses</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyproxy.AredisProxy.initialize_from_url" title="永久链接至目标">¶</a></dt>
-<dd><p>初始化.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py data">
-<dt id="pyproxy.redis_proxy">
-<code class="sig-prename descclassname">pyproxy.</code><code class="sig-name descname">redis_proxy</code><a class="reference internal" href="../../_modules/pyproxy/aredis_proxy.html#redis_proxy"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#pyproxy.redis_proxy" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt id="pyproxy.StructlogProxy">
-<em class="property">class </em><code class="sig-prename descclassname">pyproxy.</code><code class="sig-name descname">StructlogProxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_level</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyproxy/logger_proxy.html#StructlogProxy"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#pyproxy.StructlogProxy" title="永久链接至目标">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="proxy/index.html#pyproxy.proxy.Proxy" title="pyproxy.proxy.Proxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyproxy.proxy.Proxy</span></code></a></p>
-<p>Structlog的代理,使用app_name和loglevel初始化.</p>
-<dl class="py attribute">
-<dt id="pyproxy.StructlogProxy.__slots__">
-<code class="sig-name descname">__slots__</code><em class="property"> = ['app_name', 'log_level', 'instance', '_callbacks', '_instance_check']</em><a class="headerlink" href="#pyproxy.StructlogProxy.__slots__" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="pyproxy.StructlogProxy.new_instance">
-<code class="sig-name descname">new_instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">app_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">log_level</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; structlog.BoundLogger<a class="headerlink" href="#pyproxy.StructlogProxy.new_instance" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="pyproxy.StructlogProxy.initialize_for_app">
-<code class="sig-name descname">initialize_for_app</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">app_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">log_level</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'DEBUG'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyproxy.StructlogProxy.initialize_for_app" title="永久链接至目标">¶</a></dt>
-<dd><p>初始化log对象.
-:param app_name: app名
-:type app_name: str
-:param log_level: log等级
-:type log_level: str</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py data">
-<dt id="pyproxy.log">
-<code class="sig-prename descclassname">pyproxy.</code><code class="sig-name descname">log</code><a class="reference internal" href="../../_modules/pyproxy/logger_proxy.html#log"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#pyproxy.log" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt id="pyproxy.PeeweeAsyncProxy">
-<em class="property">class </em><code class="sig-prename descclassname">pyproxy.</code><code class="sig-name descname">PeeweeAsyncProxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">table_names</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyproxy/peewee_async_proxy.html#PeeweeAsyncProxy"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#pyproxy.PeeweeAsyncProxy" title="永久链接至目标">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="proxy/index.html#pyproxy.proxy.Proxy" title="pyproxy.proxy.Proxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyproxy.proxy.Proxy</span></code></a></p>
-<p>peewee_async的代理类.</p>
-<dl class="py attribute">
-<dt id="pyproxy.PeeweeAsyncProxy.__slots__">
-<code class="sig-name descname">__slots__</code><em class="property"> = ['instance', '_callbacks', '_instance_check', 'sync_instance', 'models', 'url']</em><a class="headerlink" href="#pyproxy.PeeweeAsyncProxy.__slots__" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="pyproxy.PeeweeAsyncProxy.new_instance">
-<code class="sig-name descname">new_instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">table_names</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; peewee_async.Manager<a class="headerlink" href="#pyproxy.PeeweeAsyncProxy.new_instance" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="pyproxy.PeeweeAsyncProxy.initialize_from_URL">
-<code class="sig-name descname">initialize_from_URL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">table_names</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pyproxy.PeeweeAsyncProxy.initialize_from_URL" title="永久链接至目标">¶</a></dt>
-<dd><p>初始化.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py data">
-<dt id="pyproxy.db_proxy">
-<code class="sig-prename descclassname">pyproxy.</code><code class="sig-name descname">db_proxy</code><a class="reference internal" href="../../_modules/pyproxy/peewee_async_proxy.html#db_proxy"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#pyproxy.db_proxy" title="永久链接至目标">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 </div>

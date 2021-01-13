@@ -3,6 +3,4 @@
 ## 目录
 
 * [介绍](README.md)
-* [测试覆盖率](doc_unittest/index.html)
-* [静态类型检验覆盖率](doc_typecheck/index.html)
 * [版本变化](CHANGELOG.md)
